@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import * as pdfjsLib from "pdfjs-dist/build/pdf";
 import workerUrl from "pdfjs-dist/build/pdf.worker.js?url";
 import "./CareerAdvisorFrontend.css"; // Import the CSS
+import { API_BASE } from "./config";
 
 // Set PDF.js worker
 pdfjsLib.GlobalWorkerOptions.workerSrc = workerUrl;
@@ -56,7 +57,7 @@ const CareerAdvisorFrontend = () => {
     setLoading(true);
     setRecommendations([]);
     try {
-      const response = await fetch("http://localhost:5000/recommend", {
+      const response = await fetch(`${API_BASE}/recommend`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ resume: resumeText }),

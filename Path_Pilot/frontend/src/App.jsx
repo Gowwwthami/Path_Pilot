@@ -15,9 +15,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Layout />}>
+      <Route path="/" element={<PilotPage />} />
+        <Route path="/pilot" element={<Layout />}>
           <Route index element={<CareerAdvisorFrontend />} />
-          <Route path="pilot" element={<PilotPage />} />
+          
           <Route path="assessment" element={<AssessmentPage />} />
           <Route path="evaluate" element={<RoadmapPage />} /> 
           <Route path="success" element={<SuccessPage />} />

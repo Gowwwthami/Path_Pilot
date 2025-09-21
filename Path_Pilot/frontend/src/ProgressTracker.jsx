@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_BASE } from "./config";
 
 export default function ProgressTracker() {
   const [user, setUser] = useState(null);
@@ -78,7 +79,7 @@ export default function ProgressTracker() {
     setIsLoading(true);
     
     try {
-      const response = await fetch("http://localhost:5000/get-startup-guidance", {
+      const response = await fetch(`${API_BASE}/get-startup-guidance`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

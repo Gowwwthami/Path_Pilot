@@ -1,15 +1,17 @@
 import { useState } from "react";
+import { API_BASE } from "./config";
 
 export default function RoleSearch() {
   const [role, setRole] = useState("");
   const [result, setResult] = useState(null);
 
   const handleSearch = async () => {
-    const res = await fetch("/get-role-roadmap", {
+    const res = await fetch(`${API_BASE}/get-role-roadmap`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ role }),
     });
+
     const data = await res.json();
     setResult(JSON.parse(data.result));
   };

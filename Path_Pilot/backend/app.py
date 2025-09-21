@@ -4,6 +4,7 @@ import json
 import numpy as np
 import logging
 import re
+import time
 from flask import Flask, request, jsonify
 from dotenv import load_dotenv
 from flask_cors import CORS
@@ -25,7 +26,34 @@ DATA_PATH = os.path.join(os.path.dirname(__file__), "data", "careers.json")
 
 # ---------- Init Gemini ----------
 genai.configure(api_key=GEMINI_API_KEY)
+
+# Normalize model id if users passed a display name
+def _normalize_model(m: str) -> str:
+    m = (m or "").strip()
+    # Accept either "gemini-1.5-flash" or "models/gemini-1.5-flash"
+    if m and not m.startswith("models/"):
+        return f"models/{m}"
+    return m or "models/gemini-1.5-flash"
+
+GEN_MODEL = _normalize_model(GEN_MODEL)
 gen_model = genai.GenerativeModel(GEN_MODEL)
+
+# Simple retry helper for transient errors
+MAX_RETRIES = int(os.getenv("GEN_RETRIES", 3))
+RETRY_BACKOFF = float(os.getenv("GEN_RETRY_BACKOFF", 1.5))
+
+def _retry(fn, *args, **kwargs):
+    last_err = None
+    for attempt in range(1, MAX_RETRIES + 1):
+        try:
+            return fn(*args, **kwargs)
+        except Exception as e:
+            last_err = e
+            # Log and backoff on transient network/service issues
+            logging.warning(f"GenAI call failed (attempt {attempt}/{MAX_RETRIES}): {e}")
+            if attempt < MAX_RETRIES:
+                time.sleep(RETRY_BACKOFF ** attempt)
+    raise last_err
 
 # ---------- Load dataset ----------
 try:
@@ -47,7 +75,8 @@ try:
             texts = [texts]
             is_single = True
 
-        resp = genai.embed_content(
+        resp = _retry(
+            genai.embed_content,
             model=EMBED_MODEL,
             content=texts
         )
@@ -70,8 +99,12 @@ try:
         arr = np.vstack(embeddings)
         return arr[0] if is_single else arr
     
-    career_embeddings = get_embeddings(career_texts)
-    print("✅ Career embeddings shape:", career_embeddings.shape)
+    try:
+        career_embeddings = get_embeddings(career_texts)
+        print("✅ Career embeddings shape:", career_embeddings.shape)
+    except Exception as e:
+        logging.error(f"Failed to precompute embeddings (continuing without DB): {e}")
+        career_embeddings = None
     
 except FileNotFoundError:
     print("⚠️ Career dataset not found. Some features may not work.")
@@ -110,8 +143,9 @@ def top_k_similar(query_emb, k=3):
     return idx, sims[idx].tolist()
 
 def generate_with_gemini(prompt, max_output_tokens=700, temperature=0.2):
-    """Text generation with Gemini"""
-    resp = gen_model.generate_content(
+    """Text generation with Gemini with retries"""
+    resp = _retry(
+        gen_model.generate_content,
         prompt,
         generation_config={
             "temperature": temperature,
@@ -132,12 +166,18 @@ def health():
 def recommend():
     """Enhanced recommendation endpoint supporting both profile-based and resume-based recommendations"""
     req = request.get_json(force=True)
+    if not GEMINI_API_KEY:
+        return jsonify({
+            "error": "GEMINI_API_KEY is not configured on the server",
+            "hint": "Set GEMINI_API_KEY in your Vercel project Environment Variables and redeploy"
+        }), 500
     
     # Check if it's resume-based or profile-based
     resume_text = req.get("resume", "")
     if resume_text:
         # Resume-based recommendation (from career-advisor-ai-base)
-        model = genai.GenerativeModel("models/gemini-1.5-flash")
+        # Use centralized model
+        model = gen_model
         
         prompt = f"""
         Analyze this resume and suggest exactly 5 career paths.
@@ -158,7 +198,7 @@ def recommend():
         """
         
         try:
-            response = model.generate_content(prompt)
+            response = _retry(model.generate_content, prompt)
             recommendations = try_parse_json(response.text)
             if recommendations is None:
                 raise ValueError("Failed to parse AI response into JSON.")
@@ -245,11 +285,16 @@ Return ONLY valid JSON.
 def assessment():
     """Generate assessment questions for a specific career"""
     data = request.json
+    if not GEMINI_API_KEY:
+        return jsonify({
+            "error": "GEMINI_API_KEY is not configured on the server",
+            "hint": "Set GEMINI_API_KEY in your Vercel project Environment Variables and redeploy"
+        }), 500
     career = data.get("career", "Software Engineer")
     if not career:
         return jsonify({"error": "No career path provided"}), 400
 
-    model = genai.GenerativeModel("models/gemini-1.5-flash")
+    model = gen_model
 
     assessment_prompt = f"""
     Create a short AI-generated assessment to evaluate a user's proficiency and interest in {career}.
@@ -276,7 +321,7 @@ def assessment():
     """
 
     try:
-        response = model.generate_content(assessment_prompt)
+        response = _retry(model.generate_content, assessment_prompt)
         result = try_parse_json(response.text)
         if result is None or "questions" not in result:
             raise ValueError("Failed to parse AI response for assessment.")
@@ -290,6 +335,11 @@ def assessment():
 def evaluate():
     """Generate learning roadmap based on assessment score"""
     payload = request.get_json(silent=True) or {}
+    if not GEMINI_API_KEY:
+        return jsonify({
+            "error": "GEMINI_API_KEY is not configured on the server",
+            "hint": "Set GEMINI_API_KEY in your Vercel project Environment Variables and redeploy"
+        }), 500
     score = int(payload.get('score', 0))
     career = payload.get('career', "Software Engineer")
     language = payload.get('language', "Python")
@@ -343,7 +393,7 @@ def evaluate():
     """
 
     try:
-        response = model.generate_content(roadmap_prompt)
+        response = _retry(model.generate_content, roadmap_prompt)
         response_text = response.text
         parsed = try_parse_json(response_text)
         
