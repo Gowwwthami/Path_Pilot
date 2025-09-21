@@ -1,0 +1,77 @@
+/* Shared page-level styling to unify look across all pages (no Tailwind) */
+
+.page {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(900px 600px at 15% -10%, rgba(75,108,183,.10), transparent 60%),
+              radial-gradient(700px 500px at 85% -10%, rgba(24,40,72,.10), transparent 55%),
+              linear-gradient(180deg, var(--bg-start), #fff 55%);
+}
+
+.page-header {
+  position: relative;
+  background: rgba(255,255,255,0.86);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(226,232,240,.8);
+}
+
+.page-header .inner {
+  max-width: 1152px; margin: 0 auto; padding: 20px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+
+.brand-badge {
+  width: 48px; height: 48px; border-radius: 12px; color: #fff; display: grid; place-items: center;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow: var(--shadow);
+}
+
+.brand-title { font-size: 32px; font-weight: 800; margin: 0; }
+.brand-sub   { color: var(--muted); margin: 4px 0 0; }
+
+.section { max-width: 1152px; margin: 0 auto; padding: 40px 20px; }
+.section.center { text-align: center; }
+
+.steps-grid {
+  display: grid; gap: 24px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 768px) { .steps-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (min-width: 1024px){ .steps-grid { grid-template-columns: repeat(4, minmax(0,1fr)); } }
+
+.step-card {
+  position: relative;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 20px; transition: transform .15s ease, box-shadow .15s ease, border-color .2s ease;
+}
+.step-card:hover { transform: translateY(-2px) scale(1.01); border-color: #c7d2fe; }
+
+.step-badge {
+  display: inline-block; padding: 6px 10px; border-radius: 999px; font-weight: 800; font-size: 12px;
+  color: #fff; background: linear-gradient(135deg, var(--brand), var(--brand-2));
+}
+
+.step-title { margin: 8px 0; font-size: 18px; font-weight: 800; color: #111827; }
+.step-desc  { margin: 0 0 12px; color: var(--muted); font-size: 14px; }
+.step-list  { list-style: none; padding: 0; margin: 0; }
+.step-list li { display: flex; gap: 10px; color: #334155; margin: 6px 0; font-size: 14px; }
+.step-list .bullet { color: var(--brand); margin-top: 3px; }
+
+.callout {
+  position: relative; text-align: center;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 22px; box-shadow: var(--shadow);
+  padding: 40px 20px; overflow: hidden;
+}
+.callout::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(79,70,229,.06), rgba(37,99,235,.06)); }
+.callout h3 { font-size: 32px; margin: 8px 0 12px; }
+.callout p { max-width: 780px; margin: 0 auto 18px; }
+
+.actions { display: flex; align-items: center; justify-content: center; gap: 12px; }
+
+.btn { appearance: none; border: 0; cursor: pointer; border-radius: 12px; font-weight: 800; padding: 14px 18px; }
+.btn.primary { color: #fff; background: linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow: var(--shadow); }
+.btn.secondary { color: var(--brand-2); background: #fff; border: 1px solid #c7d2fe; }
+
+.small-muted { color: var(--muted); font-size: 14px; }
