@@ -18,12 +18,12 @@ export default function Layout() {
             </div>
             <div className="hidden md:flex items-center space-x-2">
               <NavLink to="/pilot" className={({isActive}) => `px-3 py-2 rounded-lg text-sm font-semibold ${isActive ? 'text-white bg-blue-600' : 'text-gray-700 hover:text-blue-700 hover:bg-blue-50'}`}>Home</NavLink>
-              <NavLink to="/assessment" className={({isActive}) => `px-3 py-2 rounded-lg text-sm font-semibold ${isActive ? 'text-white bg-blue-600' : 'text-gray-700 hover:text-blue-700 hover:bg-blue-50'}`}>Assessment</NavLink>
-              <NavLink to="/evaluate" className={({isActive}) => `px-3 py-2 rounded-lg text-sm font-semibold ${isActive ? 'text-white bg-blue-600' : 'text-gray-700 hover:text-blue-700 hover:bg-blue-50'}`}>Roadmap</NavLink>
-              <NavLink to="/home" className={({isActive}) => `px-3 py-2 rounded-lg text-sm font-semibold ${isActive ? 'text-white bg-blue-600' : 'text-gray-700 hover:text-blue-700 hover:bg-blue-50'}`}>Startup</NavLink>
-              <NavLink to="/progress-tracker" className={({isActive}) => `px-3 py-2 rounded-lg text-sm font-semibold ${isActive ? 'text-white bg-blue-600' : 'text-gray-700 hover:text-blue-700 hover:bg-blue-50'}`}>Progress</NavLink>
-              <NavLink to="/ai" className={({isActive}) => `px-3 py-2 rounded-lg text-sm font-semibold ${isActive ? 'text-white bg-blue-600' : 'text-gray-700 hover:text-blue-700 hover:bg-blue-50'}`}>AI</NavLink>
-              <NavLink to="/test" className={({isActive}) => `px-3 py-2 rounded-lg text-sm font-semibold ${isActive ? 'text-white bg-blue-600' : 'text-gray-700 hover:text-blue-700 hover:bg-blue-50'}`}>Style</NavLink>
+              <NavLink to="/pilot/assessment" className={({isActive}) => `px-3 py-2 rounded-lg text-sm font-semibold ${isActive ? 'text-white bg-blue-600' : 'text-gray-700 hover:text-blue-700 hover:bg-blue-50'}`}>Assessment</NavLink>
+              <NavLink to="/pilot/evaluate" className={({isActive}) => `px-3 py-2 rounded-lg text-sm font-semibold ${isActive ? 'text-white bg-blue-600' : 'text-gray-700 hover:text-blue-700 hover:bg-blue-50'}`}>Roadmap</NavLink>
+              <NavLink to="/pilot/home" className={({isActive}) => `px-3 py-2 rounded-lg text-sm font-semibold ${isActive ? 'text-white bg-blue-600' : 'text-gray-700 hover:text-blue-700 hover:bg-blue-50'}`}>Startup</NavLink>
+              <NavLink to="/pilot/progress-tracker" className={({isActive}) => `px-3 py-2 rounded-lg text-sm font-semibold ${isActive ? 'text-white bg-blue-600' : 'text-gray-700 hover:text-blue-700 hover:bg-blue-50'}`}>Progress</NavLink>
+              <NavLink to="/pilot/ai" className={({isActive}) => `px-3 py-2 rounded-lg text-sm font-semibold ${isActive ? 'text-white bg-blue-600' : 'text-gray-700 hover:text-blue-700 hover:bg-blue-50'}`}>AI</NavLink>
+              <NavLink to="/pilot/test" className={({isActive}) => `px-3 py-2 rounded-lg text-sm font-semibold ${isActive ? 'text-white bg-blue-600' : 'text-gray-700 hover:text-blue-700 hover:bg-blue-50'}`}>Style</NavLink>
             </div>
           </div>
         </div>

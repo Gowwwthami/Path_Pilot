@@ -27,8 +27,8 @@ export default function PilotPage() {
             and a learning roadmap. Or explore a structured startup path with smart guidance at every stage.
           </p>
           <div className="actions">
-            <button className="btn primary" onClick={() => navigate("/")}>I want to find a job</button>
-            <button className="btn secondary" onClick={() => navigate("/home")}>I'm building a startup</button>
+            <button className="btn primary" onClick={() => navigate("/pilot")}>I want to find a job</button>
+            <button className="btn secondary" onClick={() => navigate("/pilot/home")}>I'm building a startup</button>
           </div>
         </div>
       </section>
@@ -64,8 +64,8 @@ export default function PilotPage() {
           <h3>Ready to get started?</h3>
           <p className="small-muted">Pick a path below — you can switch any time.</p>
           <div className="actions">
-            <button className="btn primary" onClick={() => navigate("/")}>Discover Career Matches</button>
-            <button className="btn secondary" onClick={() => navigate("/home")}>Explore Startup Journey</button>
+            <button className="btn primary" onClick={() => navigate("/pilot")}>Discover Career Matches</button>
+            <button className="btn secondary" onClick={() => navigate("/pilot/home")}>Explore Startup Journey</button>
           </div>
         </div>
       </section>

@@ -85,7 +85,7 @@ function RoadmapPage() {
   };
 
   const finishroadmap = () => {
-    navigate("/success");
+    navigate("/pilot/success");
   };
 
   return (

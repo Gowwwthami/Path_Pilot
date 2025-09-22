@@ -115,7 +115,7 @@ export default function EntrepreneurHome() {
   ];
 
   const handleGetStarted = () => {
-    navigate("/progress-tracker");
+    navigate("/pilot/progress-tracker");
   };
 
   const handleLogout = () => {

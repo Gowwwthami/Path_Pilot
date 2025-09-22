@@ -46,7 +46,7 @@ const AssessmentPage = () => {
   const finishQuiz = () => {
     setFinished(true);
     // Navigate to the evaluate page, passing the score and career in the state
-    navigate("/evaluate", { state: { score: score, career: selectedCareer } });
+    navigate("/pilot/evaluate", { state: { score: score, career: selectedCareer } });
   };
 
   if (loading) {

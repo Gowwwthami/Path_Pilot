@@ -135,7 +135,7 @@ const CareerAdvisorFrontend = () => {
                     <button
                       className="assessment-button"
                       onClick={() =>
-                        navigate("/assessment", { state: { career: job.title } })
+                        navigate("/pilot/assessment", { state: { career: job.title } })
                       }
                     >
                       Take Skill Assessment →
