@@ -1,0 +1,288 @@
+{
+  "stocks": [
+    {
+      "symbol": "AAPL",
+      "name": "Apple Inc.",
+      "sector": "Technology",
+      "current_price": 178.50,
+      "market_cap": "2.8T",
+      "pe_ratio": 29.5,
+      "dividend_yield": 0.55,
+      "52_week_high": 198.23,
+      "52_week_low": 124.17,
+      "trend": "Bullish",
+      "key_metrics": {
+        "revenue_growth": "8.2%",
+        "profit_margin": "25.3%",
+        "debt_to_equity": 1.87
+      },
+      "analysis": "Strong brand loyalty, growing services revenue, innovation in AI and AR/VR"
+    },
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft Corporation",
+      "sector": "Technology",
+      "current_price": 378.90,
+      "market_cap": "2.8T",
+      "pe_ratio": 35.2,
+      "dividend_yield": 0.82,
+      "52_week_high": 384.30,
+      "52_week_low": 213.43,
+      "trend": "Bullish",
+      "key_metrics": {
+        "revenue_growth": "12.5%",
+        "profit_margin": "36.7%",
+        "debt_to_equity": 0.45
+      },
+      "analysis": "Cloud dominance with Azure, strong AI integration, enterprise software leader"
+    },
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet Inc.",
+      "sector": "Technology",
+      "current_price": 141.80,
+      "market_cap": "1.8T",
+      "pe_ratio": 25.8,
+      "dividend_yield": 0.0,
+      "52_week_high": 153.78,
+      "52_week_low": 83.34,
+      "trend": "Bullish",
+      "key_metrics": {
+        "revenue_growth": "11.3%",
+        "profit_margin": "23.5%",
+        "debt_to_equity": 0.11
+      },
+      "analysis": "Search dominance, growing cloud business, AI leadership with Gemini"
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon.com Inc.",
+      "sector": "E-Commerce/Cloud",
+      "current_price": 178.25,
+      "market_cap": "1.85T",
+      "pe_ratio": 62.3,
+      "dividend_yield": 0.0,
+      "52_week_high": 189.77,
+      "52_week_low": 88.12,
+      "trend": "Bullish",
+      "key_metrics": {
+        "revenue_growth": "12.6%",
+        "profit_margin": "6.3%",
+        "debt_to_equity": 0.58
+      },
+      "analysis": "AWS market leader, e-commerce growth, expanding advertising business"
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "sector": "Semiconductors",
+      "current_price": 875.30,
+      "market_cap": "2.2T",
+      "pe_ratio": 72.5,
+      "dividend_yield": 0.03,
+      "52_week_high": 974.00,
+      "52_week_low": 108.13,
+      "trend": "Very Bullish",
+      "key_metrics": {
+        "revenue_growth": "126.0%",
+        "profit_margin": "48.9%",
+        "debt_to_equity": 0.42
+      },
+      "analysis": "AI chip dominance, data center growth, strong demand for GPUs"
+    },
+    {
+      "symbol": "TSLA",
+      "name": "Tesla Inc.",
+      "sector": "Automotive/Energy",
+      "current_price": 175.35,
+      "market_cap": "556B",
+      "pe_ratio": 45.2,
+      "dividend_yield": 0.0,
+      "52_week_high": 299.29,
+      "52_week_low": 101.81,
+      "trend": "Neutral",
+      "key_metrics": {
+        "revenue_growth": "18.8%",
+        "profit_margin": "15.5%",
+        "debt_to_equity": 0.17
+      },
+      "analysis": "EV market leader, energy storage growth, autonomous driving potential"
+    },
+    {
+      "symbol": "JPM",
+      "name": "JPMorgan Chase & Co.",
+      "sector": "Financial Services",
+      "current_price": 198.45,
+      "market_cap": "571B",
+      "pe_ratio": 11.8,
+      "dividend_yield": 2.35,
+      "52_week_high": 205.88,
+      "52_week_low": 135.19,
+      "trend": "Bullish",
+      "key_metrics": {
+        "revenue_growth": "22.3%",
+        "profit_margin": "32.1%",
+        "debt_to_equity": 1.23
+      },
+      "analysis": "Leading investment bank, strong trading revenue, digital transformation"
+    },
+    {
+      "symbol": "V",
+      "name": "Visa Inc.",
+      "sector": "Financial Services",
+      "current_price": 279.60,
+      "market_cap": "571B",
+      "pe_ratio": 30.5,
+      "dividend_yield": 0.78,
+      "52_week_high": 290.96,
+      "52_week_low": 221.66,
+      "trend": "Bullish",
+      "key_metrics": {
+        "revenue_growth": "11.5%",
+        "profit_margin": "51.6%",
+        "debt_to_equity": 0.65
+      },
+      "analysis": "Payment processing monopoly, digital payment growth, global expansion"
+    },
+    {
+      "symbol": "JNJ",
+      "name": "Johnson & Johnson",
+      "sector": "Healthcare",
+      "current_price": 156.20,
+      "market_cap": "376B",
+      "pe_ratio": 22.3,
+      "dividend_yield": 3.12,
+      "52_week_high": 175.97,
+      "52_week_low": 144.95,
+      "trend": "Neutral",
+      "key_metrics": {
+        "revenue_growth": "6.5%",
+        "profit_margin": "17.8%",
+        "debt_to_equity": 0.47
+      },
+      "analysis": "Diversified healthcare, strong pharma pipeline, consumer health spinoff"
+    },
+    {
+      "symbol": "WMT",
+      "name": "Walmart Inc.",
+      "sector": "Retail",
+      "current_price": 165.75,
+      "market_cap": "445B",
+      "pe_ratio": 28.7,
+      "dividend_yield": 1.45,
+      "52_week_high": 170.55,
+      "52_week_low": 117.27,
+      "trend": "Bullish",
+      "key_metrics": {
+        "revenue_growth": "6.0%",
+        "profit_margin": "2.4%",
+        "debt_to_equity": 0.62
+      },
+      "analysis": "E-commerce growth, supply chain excellence, expanding membership program"
+    }
+  ],
+  "market_indices": {
+    "S&P_500": {
+      "value": 5234.18,
+      "change": "+1.2%",
+      "trend": "Bullish",
+      "pe_ratio": 21.5
+    },
+    "NASDAQ": {
+      "value": 16742.39,
+      "change": "+1.8%",
+      "trend": "Bullish",
+      "pe_ratio": 28.3
+    },
+    "DOW_JONES": {
+      "value": 39512.84,
+      "change": "+0.9%",
+      "trend": "Bullish",
+      "pe_ratio": 19.8
+    }
+  },
+  "investment_strategies": [
+    {
+      "name": "Value Investing",
+      "description": "Buy undervalued stocks with strong fundamentals and hold long-term",
+      "risk_level": "Medium",
+      "time_horizon": "5-10 years",
+      "key_metrics": ["P/E Ratio", "P/B Ratio", "Dividend Yield", "Free Cash Flow"],
+      "examples": ["Warren Buffett", "Benjamin Graham"],
+      "pros": ["Lower risk", "Proven strategy", "Dividend income"],
+      "cons": ["Requires patience", "May underperform in bull markets"]
+    },
+    {
+      "name": "Growth Investing",
+      "description": "Invest in companies with above-average growth potential",
+      "risk_level": "High",
+      "time_horizon": "3-7 years",
+      "key_metrics": ["Revenue Growth", "EPS Growth", "Market Opportunity", "Innovation"],
+      "examples": ["Cathie Wood (ARK Invest)", "Peter Lynch"],
+      "pros": ["High returns potential", "Compound growth", "Innovation exposure"],
+      "cons": ["Higher volatility", "Valuation risk", "Market timing sensitivity"]
+    },
+    {
+      "name": "Index Fund Investing",
+      "description": "Passive investing in market indices for diversified exposure",
+      "risk_level": "Low-Medium",
+      "time_horizon": "10+ years",
+      "key_metrics": ["Expense Ratio", "Tracking Error", "Index Performance"],
+      "examples": ["Vanguard S&P 500 ETF (VOO)", "Fidelity Total Market"],
+      "pros": ["Low fees", "Instant diversification", "Market-matching returns"],
+      "cons": ["No outperformance", "Market risk remains", "Limited control"]
+    },
+    {
+      "name": "Dividend Investing",
+      "description": "Focus on stocks that pay regular dividends for income",
+      "risk_level": "Low-Medium",
+      "time_horizon": "5-15 years",
+      "key_metrics": ["Dividend Yield", "Payout Ratio", "Dividend Growth Rate"],
+      "examples": ["Dividend Aristocrats", "REITs"],
+      "pros": ["Passive income", "Lower volatility", "Compound reinvestment"],
+      "cons": ["Tax implications", "Limited growth", "Interest rate sensitivity"]
+    }
+  ],
+  "market_analysis_frameworks": {
+    "fundamental_analysis": {
+      "description": "Evaluate company's intrinsic value through financial statements",
+      "components": [
+        "Income Statement Analysis",
+        "Balance Sheet Evaluation",
+        "Cash Flow Assessment",
+        "Ratio Analysis (P/E, P/B, ROE, etc.)",
+        "Competitive Positioning"
+      ],
+      "tools": ["Yahoo Finance", "Morningstar", "SEC EDGAR"]
+    },
+    "technical_analysis": {
+      "description": "Predict future price movements based on historical patterns",
+      "components": [
+        "Chart Patterns",
+        "Moving Averages",
+        "Relative Strength Index (RSI)",
+        "MACD",
+        "Support and Resistance Levels"
+      ],
+      "tools": ["TradingView", "Thinkorswim", "MetaTrader"]
+    },
+    "sentiment_analysis": {
+      "description": "Gauge market mood through news, social media, and investor behavior",
+      "components": [
+        "News Sentiment",
+        "Social Media Trends",
+        "Insider Trading Activity",
+        "Short Interest",
+        "VIX (Fear Index)"
+      ],
+      "tools": ["Bloomberg Terminal", "StockTwits", "CNN Fear & Greed Index"]
+    }
+  },
+  "risk_management": {
+    "diversification": "Spread investments across different sectors and asset classes",
+    "position_sizing": "Never risk more than 2% of portfolio on single trade",
+    "stop_loss": "Set automatic sell orders to limit losses",
+    "rebalancing": "Review and adjust portfolio quarterly",
+    "emergency_fund": "Maintain 3-6 months expenses before investing"
+  }
+}

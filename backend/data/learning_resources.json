@@ -1,0 +1,221 @@
+{
+  "courses": [
+    {
+      "id": "ml_coursera",
+      "title": "Machine Learning Specialization",
+      "provider": "Coursera - Stanford",
+      "instructor": "Andrew Ng",
+      "url": "https://www.coursera.org/specializations/machine-learning-introduction",
+      "category": "Machine Learning",
+      "level": "Beginner-Intermediate",
+      "duration": "3 months",
+      "rating": 4.9,
+      "topics": ["Supervised Learning", "Unsupervised Learning", "Reinforcement Learning"]
+    },
+    {
+      "id": "deeplearning_specialization",
+      "title": "Deep Learning Specialization",
+      "provider": "Coursera - DeepLearning.AI",
+      "instructor": "Andrew Ng",
+      "url": "https://www.coursera.org/specializations/deep-learning",
+      "category": "Deep Learning",
+      "level": "Intermediate-Advanced",
+      "duration": "4 months",
+      "rating": 4.8,
+      "topics": ["Neural Networks", "CNNs", "RNNs", "Transformers"]
+    },
+    {
+      "id": "fastapi_course",
+      "title": "FastAPI - The Complete Course",
+      "provider": "Udemy",
+      "instructor": "Eric Roby",
+      "url": "https://www.udemy.com/course/fastapi-the-complete-course/",
+      "category": "Backend Development",
+      "level": "Beginner-Intermediate",
+      "duration": "8 hours",
+      "rating": 4.6,
+      "topics": ["FastAPI", "Python", "REST APIs", "Databases"]
+    },
+    {
+      "id": "react_complete",
+      "title": "React - The Complete Guide",
+      "provider": "Udemy",
+      "instructor": "Maximilian Schwarzmüller",
+      "url": "https://www.udemy.com/course/react-the-complete-guide-incl-redux/",
+      "category": "Frontend Development",
+      "level": "Beginner-Advanced",
+      "duration": "48 hours",
+      "rating": 4.7,
+      "topics": ["React", "Redux", "React Router", "Hooks"]
+    },
+    {
+      "id": "aws_cloud_practitioner",
+      "title": "AWS Cloud Practitioner Essentials",
+      "provider": "AWS Training",
+      "instructor": "AWS",
+      "url": "https://www.aws.training/certification",
+      "category": "Cloud Computing",
+      "level": "Beginner",
+      "duration": "6 hours",
+      "rating": 4.5,
+      "topics": ["AWS Services", "Cloud Architecture", "Security", "Pricing"]
+    },
+    {
+      "id": "data_science_ibm",
+      "title": "IBM Data Science Professional Certificate",
+      "provider": "Coursera - IBM",
+      "instructor": "IBM",
+      "url": "https://www.coursera.org/professional-certificates/ibm-data-science",
+      "category": "Data Science",
+      "level": "Beginner",
+      "duration": "11 months",
+      "rating": 4.7,
+      "topics": ["Python", "Data Analysis", "Machine Learning", "Visualization"]
+    }
+  ],
+  "youtube_channels": [
+    {
+      "name": "freeCodeCamp.org",
+      "url": "https://www.youtube.com/c/Freecodecamp",
+      "category": "Programming",
+      "subscribers": "8M+",
+      "description": "Full courses on web development, data science, AI, and more"
+    },
+    {
+      "name": "Sentdex",
+      "url": "https://www.youtube.com/c/sentdex",
+      "category": "Machine Learning/Finance",
+      "subscribers": "1.2M+",
+      "description": "Python for finance, ML, AI, and data analysis"
+    },
+    {
+      "name": "Tech With Tim",
+      "url": "https://www.youtube.com/c/TechWithTim",
+      "category": "Programming",
+      "subscribers": "1.5M+",
+      "description": "Python tutorials, AI projects, game development"
+    },
+    {
+      "name": "Fireship",
+      "url": "https://www.youtube.com/c/Fireship",
+      "category": "Web Development",
+      "subscribers": "2.5M+",
+      "description": "Quick, high-quality web dev tutorials and tech news"
+    },
+    {
+      "name": "Krish Naik",
+      "url": "https://www.youtube.com/c/KrishNaik1",
+      "category": "Data Science/ML",
+      "subscribers": "1M+",
+      "description": "Complete ML, DL, NLP tutorials with projects"
+    }
+  ],
+  "documentation": [
+    {
+      "title": "Python Documentation",
+      "url": "https://docs.python.org/3/",
+      "category": "Programming Language",
+      "description": "Official Python language reference and tutorials"
+    },
+    {
+      "title": "React Documentation",
+      "url": "https://react.dev/",
+      "category": "Frontend Framework",
+      "description": "Learn React with official docs and interactive examples"
+    },
+    {
+      "title": "FastAPI Documentation",
+      "url": "https://fastapi.tiangolo.com/",
+      "category": "Backend Framework",
+      "description": "Modern, fast web framework for building APIs with Python"
+    },
+    {
+      "title": "OpenAI API Documentation",
+      "url": "https://platform.openai.com/docs",
+      "category": "AI/ML",
+      "description": "GPT models, embeddings, and AI integration guides"
+    },
+    {
+      "title": "Pinecone Documentation",
+      "url": "https://docs.pinecone.io/",
+      "category": "Vector Database",
+      "description": "Vector database for semantic search and AI applications"
+    }
+  ],
+  "books": [
+    {
+      "title": "Python Crash Course",
+      "author": "Eric Matthes",
+      "url": "https://nostarch.com/pythoncrashcourse2e",
+      "category": "Programming",
+      "level": "Beginner",
+      "description": "Hands-on, project-based introduction to Python"
+    },
+    {
+      "title": "Deep Learning",
+      "author": "Ian Goodfellow, Yoshua Bengio, Aaron Courville",
+      "url": "https://www.deeplearningbook.org/",
+      "category": "Machine Learning",
+      "level": "Advanced",
+      "description": "Comprehensive deep learning textbook"
+    },
+    {
+      "title": "Designing Data-Intensive Applications",
+      "author": "Martin Kleppmann",
+      "url": "https://dataintensive.net/",
+      "category": "System Design",
+      "level": "Intermediate-Advanced",
+      "description": "Principles of scalable, reliable data systems"
+    },
+    {
+      "title": "Clean Code",
+      "author": "Robert C. Martin",
+      "url": "https://www.oreilly.com/library/view/clean-code/9780136083238/",
+      "category": "Software Engineering",
+      "level": "All Levels",
+      "description": "Best practices for writing maintainable code"
+    },
+    {
+      "title": "The Lean Startup",
+      "author": "Eric Ries",
+      "url": "https://theleanstartup.com/",
+      "category": "Entrepreneurship",
+      "level": "All Levels",
+      "description": "Build-Measure-Learn methodology for startups"
+    }
+  ],
+  "github_repositories": [
+    {
+      "name": "transformers",
+      "owner": "huggingface",
+      "url": "https://github.com/huggingface/transformers",
+      "category": "AI/ML",
+      "stars": "120k+",
+      "description": "State-of-the-art NLP models and tools"
+    },
+    {
+      "name": "system-design-primer",
+      "owner": "donnemartin",
+      "url": "https://github.com/donnemartin/system-design-primer",
+      "category": "System Design",
+      "stars": "230k+",
+      "description": "Learn how to design large-scale systems"
+    },
+    {
+      "name": "public-apis",
+      "owner": "public-apis",
+      "url": "https://github.com/public-apis/public-apis",
+      "category": "APIs",
+      "stars": "280k+",
+      "description": "Collective list of free APIs for development"
+    },
+    {
+      "name": "langchain",
+      "owner": "langchain-ai",
+      "url": "https://github.com/langchain-ai/langchain",
+      "category": "AI/LLM",
+      "stars": "85k+",
+      "description": "Build applications with LLMs through composability"
+    }
+  ]
+}

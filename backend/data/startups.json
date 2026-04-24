@@ -1,0 +1,258 @@
+[
+  {
+    "id": "saas_startup",
+    "category": "SaaS",
+    "title": "Software as a Service (SaaS)",
+    "framework": "Lean Startup",
+    "description": "Cloud-based software delivered on subscription basis with recurring revenue model.",
+    "stages": [
+      {
+        "name": "Idea Validation",
+        "duration": "2-4 weeks",
+        "steps": [
+          "Identify target market pain points",
+          "Conduct 20+ customer interviews",
+          "Create landing page with waitlist",
+          "Build minimum viable product (MVP)",
+          "Test with 10-20 early adopters"
+        ],
+        "resources": [
+          {"title": "The Lean Startup by Eric Ries", "url": "https://amzn.to/3xyz", "type": "book"},
+          {"title": "Y Combinator Startup School", "url": "https://www.startupschool.org/", "type": "course"}
+        ],
+        "common_pitfalls": ["Building without customer validation", "Feature creep", "Ignoring competition"]
+      },
+      {
+        "name": "Product Development",
+        "duration": "3-6 months",
+        "steps": [
+          "Define core features based on feedback",
+          "Build MVP with essential functionality",
+          "Implement analytics and user tracking",
+          "Conduct beta testing with 50-100 users",
+          "Iterate based on user feedback"
+        ],
+        "resources": [
+          {"title": "Product School - Product Management", "url": "https://productschool.com/", "type": "course"},
+          {"title": "Mixpanel Analytics Guide", "url": "https://mixpanel.com/", "type": "tool"}
+        ],
+        "common_pitfalls": ["Over-engineering", "Ignoring technical debt", "Slow iteration cycles"]
+      },
+      {
+        "name": "Go-to-Market",
+        "duration": "2-3 months",
+        "steps": [
+          "Define pricing strategy",
+          "Build marketing funnel",
+          "Launch content marketing",
+          "Implement referral program",
+          "Establish customer success process"
+        ],
+        "resources": [
+          {"title": "HubSpot Academy - Inbound Marketing", "url": "https://academy.hubspot.com/", "type": "course"},
+          {"title": "Stripe Atlas - Business Setup", "url": "https://stripe.com/atlas", "type": "tool"}
+        ],
+        "common_pitfalls": ["Wrong pricing model", "Poor onboarding experience", "Ignoring customer retention"]
+      },
+      {
+        "name": "Growth & Scale",
+        "duration": "6-12 months",
+        "steps": [
+          "Optimize conversion funnel",
+          "Expand feature set",
+          "Build partnerships",
+          "Scale infrastructure",
+          "Hire key team members"
+        ],
+        "resources": [
+          {"title": "Blitzscaling by Reid Hoffman", "url": "https://amzn.to/3abc", "type": "book"},
+          {"title": "AWS Startup Programs", "url": "https://aws.amazon.com/startups/", "type": "program"}
+        ],
+        "common_pitfalls": ["Premature scaling", "Cash flow mismanagement", "Losing product-market fit"]
+      }
+    ],
+    "funding_options": ["Bootstrapping", "Angel Investment", "Seed Round", "Series A"],
+    "key_metrics": ["MRR (Monthly Recurring Revenue)", "Churn Rate", "CAC (Customer Acquisition Cost)", "LTV (Lifetime Value)", "NPS (Net Promoter Score)"],
+    "case_studies": [
+      {
+        "company": "Slack",
+        "summary": "Started as internal tool, pivoted to team communication, reached $1B ARR in 8 years",
+        "key_learnings": ["Product-led growth", "Freemium model", "Viral adoption"]
+      },
+      {
+        "company": "Notion",
+        "summary": "All-in-one workspace, grew through community and word-of-mouth",
+        "key_learnings": ["Community building", "Template ecosystem", "User-generated content"]
+      }
+    ]
+  },
+  {
+    "id": "ecommerce_startup",
+    "category": "E-Commerce",
+    "title": "E-Commerce Platform",
+    "framework": "Direct-to-Consumer (D2C)",
+    "description": "Online retail business selling products directly to consumers without intermediaries.",
+    "stages": [
+      {
+        "name": "Market Research",
+        "duration": "2-4 weeks",
+        "steps": [
+          "Identify niche market",
+          "Analyze competitors",
+          "Validate product demand",
+          "Define target audience",
+          "Calculate unit economics"
+        ],
+        "resources": [
+          {"title": "Shopify Business Courses", "url": "https://www.shopify.com/in/business-courses", "type": "course"},
+          {"title": "Google Trends", "url": "https://trends.google.com/", "type": "tool"}
+        ],
+        "common_pitfalls": ["Saturated market", "Poor product selection", "Ignoring logistics"]
+      },
+      {
+        "name": "Store Setup",
+        "duration": "1-2 months",
+        "steps": [
+          "Choose e-commerce platform (Shopify, WooCommerce)",
+          "Design store and user experience",
+          "Set up payment gateway",
+          "Configure shipping and fulfillment",
+          "Test entire purchase flow"
+        ],
+        "resources": [
+          {"title": "Shopify Documentation", "url": "https://help.shopify.com/", "type": "documentation"},
+          {"title": "Stripe Payment Integration", "url": "https://stripe.com/docs", "type": "documentation"}
+        ],
+        "common_pitfalls": ["Complex checkout", "Hidden shipping costs", "Mobile-unfriendly design"]
+      },
+      {
+        "name": "Marketing & Launch",
+        "duration": "2-3 months",
+        "steps": [
+          "Build social media presence",
+          "Launch influencer partnerships",
+          "Run targeted ads (Facebook, Google)",
+          "Implement email marketing",
+          "Create content marketing strategy"
+        ],
+        "resources": [
+          {"title": "Facebook Blueprint - Ads Training", "url": "https://www.facebook.com/business/learn", "type": "course"},
+          {"title": "Klaviyo Email Marketing", "url": "https://www.klaviyo.com/", "type": "tool"}
+        ],
+        "common_pitfalls": ["High CAC", "Poor ad targeting", "Weak brand story"]
+      },
+      {
+        "name": "Optimization & Scale",
+        "duration": "3-6 months",
+        "steps": [
+          "Optimize conversion rate",
+          "Expand product line",
+          "Improve customer retention",
+          "Automate operations",
+          "Explore international markets"
+        ],
+        "resources": [
+          {"title": "CRO Best Practices", "url": "https://www.optimizely.com/optimization-glossary/", "type": "guide"},
+          {"title": "Google Analytics Academy", "url": "https://analytics.google.com/analytics/academy/", "type": "course"}
+        ],
+        "common_pitfalls": ["Inventory management issues", "Customer service bottlenecks", "Cash flow problems"]
+      }
+    ],
+    "funding_options": ["Self-funding", "Small Business Loan", "Crowdfunding", "Angel Investment"],
+    "key_metrics": ["Conversion Rate", "Average Order Value", "Customer Lifetime Value", "Return Rate", "Traffic Sources"],
+    "case_studies": [
+      {
+        "company": "Warby Parker",
+        "summary": "Disrupted eyewear industry with home try-on model and social impact",
+        "key_learnings": ["Vertical integration", "Social mission", "Omnichannel strategy"]
+      }
+    ]
+  },
+  {
+    "id": "fintech_startup",
+    "category": "Fintech",
+    "title": "Financial Technology",
+    "framework": "Regulatory-First Approach",
+    "description": "Technology-driven financial services innovation requiring compliance and security focus.",
+    "stages": [
+      {
+        "name": "Regulatory Research",
+        "duration": "1-3 months",
+        "steps": [
+          "Identify applicable regulations",
+          "Consult with legal experts",
+          "Understand licensing requirements",
+          "Design compliance framework",
+          "Plan security architecture"
+        ],
+        "resources": [
+          {"title": "Fintech Regulatory Guide", "url": "https://www.fca.org.uk/firms/fintech", "type": "guide"},
+          {"title": "PCI DSS Compliance", "url": "https://www.pcisecuritystandards.org/", "type": "standard"}
+        ],
+        "common_pitfalls": ["Ignoring compliance early", "Underestimating legal costs", "Security vulnerabilities"]
+      },
+      {
+        "name": "MVP Development",
+        "duration": "3-6 months",
+        "steps": [
+          "Build secure infrastructure",
+          "Implement KYC/AML processes",
+          "Develop core financial features",
+          "Conduct security audits",
+          "Beta test with limited users"
+        ],
+        "resources": [
+          {"title": "Plaid API Documentation", "url": "https://plaid.com/docs/", "type": "documentation"},
+          {"title": "AWS Financial Services", "url": "https://aws.amazon.com/financial-services/", "type": "platform"}
+        ],
+        "common_pitfalls": ["Poor security practices", "Complex user experience", "Integration challenges"]
+      },
+      {
+        "name": "Launch & Traction",
+        "duration": "2-4 months",
+        "steps": [
+          "Obtain necessary licenses",
+          "Launch to early adopters",
+          "Build trust and credibility",
+          "Establish customer support",
+          "Monitor compliance continuously"
+        ],
+        "resources": [
+          {"title": "Fintech Marketing Strategies", "url": "https://www.fintechmarketing.com/", "type": "guide"},
+          {"title": "Zendesk for Financial Services", "url": "https://www.zendesk.com/industries/financial-services/", "type": "tool"}
+        ],
+        "common_pitfalls": ["Trust barriers", "Regulatory changes", "High customer acquisition cost"]
+      },
+      {
+        "name": "Scale & Expand",
+        "duration": "6-12 months",
+        "steps": [
+          "Expand product offerings",
+          "Enter new markets",
+          "Build partnerships with banks",
+          "Raise Series A funding",
+          "Scale infrastructure"
+        ],
+        "resources": [
+          {"title": "Fintech Funding Guide", "url": "https://www.cbinsights.com/research/fintech-funding/", "type": "report"},
+          {"title": "Stripe Atlas for Fintech", "url": "https://stripe.com/atlas/guides/fintech", "type": "guide"}
+        ],
+        "common_pitfalls": ["Regulatory complexity in new markets", "Scaling security", "Maintaining compliance"]
+      }
+    ],
+    "funding_options": ["Angel Investment", "Venture Capital", "Strategic Partnerships", "Government Grants"],
+    "key_metrics": ["Total Payment Volume", "Active Users", "Transaction Volume", "Compliance Score", "Fraud Rate"],
+    "case_studies": [
+      {
+        "company": "Stripe",
+        "summary": "Simplified online payments for developers, became $95B company",
+        "key_learnings": ["Developer-first approach", "API-centric design", "Global expansion"]
+      },
+      {
+        "company": "Robinhood",
+        "summary": "Democratized stock trading with commission-free model",
+        "key_learnings": ["Disrupt pricing models", "Mobile-first experience", "Regulatory challenges"]
+      }
+    ]
+  }
+]

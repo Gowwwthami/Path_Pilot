@@ -1,0 +1,217 @@
+[
+  {
+    "id": "data_scientist",
+    "title": "Data Scientist",
+    "category": "Technology",
+    "summary": "Analyze datasets, build predictive models and visualize insights for business decisions.",
+    "skills": {
+      "beginner": ["Python", "Statistics", "SQL", "Excel"],
+      "intermediate": ["Machine Learning", "Data Visualization", "Pandas", "NumPy", "Scikit-learn"],
+      "advanced": ["Deep Learning", "MLOps", "Big Data", "TensorFlow", "Spark"]
+    },
+    "roadmap": [
+      {
+        "phase": "Foundation",
+        "duration": "3 months",
+        "topics": ["Python Basics", "Statistics", "SQL"],
+        "resources": [
+          {"title": "Python for Data Science - Coursera", "url": "https://www.coursera.org/learn/python-data-science", "type": "course"},
+          {"title": "Kaggle Python Course", "url": "https://www.kaggle.com/learn/python", "type": "course"}
+        ]
+      },
+      {
+        "phase": "Intermediate",
+        "duration": "4 months",
+        "topics": ["Machine Learning", "Data Visualization", "Pandas"],
+        "resources": [
+          {"title": "Machine Learning by Andrew Ng", "url": "https://www.coursera.org/learn/machine-learning", "type": "course"},
+          {"title": "Data Visualization with Python", "url": "https://www.edx.org/course/data-visualization", "type": "course"}
+        ]
+      },
+      {
+        "phase": "Advanced",
+        "duration": "5 months",
+        "topics": ["Deep Learning", "MLOps", "Big Data"],
+        "resources": [
+          {"title": "Deep Learning Specialization", "url": "https://www.coursera.org/specializations/deep-learning", "type": "course"},
+          {"title": "MLOps Fundamentals", "url": "https://www.udemy.com/course/mlops/", "type": "course"}
+        ]
+      }
+    ],
+    "salary_range": "$70k-$130k",
+    "market_demand": "High",
+    "related_roles": ["ML Engineer", "Data Analyst", "Data Engineer"]
+  },
+  {
+    "id": "frontend_developer",
+    "title": "Frontend Developer",
+    "category": "Technology",
+    "summary": "Build user-facing web interfaces using HTML, CSS, JavaScript and modern frameworks.",
+    "skills": {
+      "beginner": ["HTML", "CSS", "JavaScript", "Git"],
+      "intermediate": ["React", "TypeScript", "Responsive Design", "REST APIs"],
+      "advanced": ["Next.js", "State Management", "Performance Optimization", "Testing"]
+    },
+    "roadmap": [
+      {
+        "phase": "Foundation",
+        "duration": "2 months",
+        "topics": ["HTML/CSS", "JavaScript Basics", "Git"],
+        "resources": [
+          {"title": "freeCodeCamp - Front End Development", "url": "https://www.freecodecamp.org/", "type": "course"},
+          {"title": "MDN Web Docs", "url": "https://developer.mozilla.org/", "type": "documentation"}
+        ]
+      },
+      {
+        "phase": "Intermediate",
+        "duration": "3 months",
+        "topics": ["React", "TypeScript", "APIs"],
+        "resources": [
+          {"title": "React Official Docs", "url": "https://react.dev/", "type": "documentation"},
+          {"title": "TypeScript Handbook", "url": "https://www.typescriptlang.org/docs/", "type": "documentation"}
+        ]
+      },
+      {
+        "phase": "Advanced",
+        "duration": "4 months",
+        "topics": ["Next.js", "Performance", "Testing"],
+        "resources": [
+          {"title": "Next.js Documentation", "url": "https://nextjs.org/docs", "type": "documentation"},
+          {"title": "Testing JavaScript", "url": "https://testingjavascript.com/", "type": "course"}
+        ]
+      }
+    ],
+    "salary_range": "$60k-$120k",
+    "market_demand": "High",
+    "related_roles": ["Full Stack Developer", "UI/UX Developer", "React Developer"]
+  },
+  {
+    "id": "backend_developer",
+    "title": "Backend Developer",
+    "category": "Technology",
+    "summary": "Design and implement server-side logic, databases, and APIs for web applications.",
+    "skills": {
+      "beginner": ["Python/Node.js", "SQL", "REST APIs", "Git"],
+      "intermediate": ["Databases", "API Design", "Authentication", "Docker"],
+      "advanced": ["Microservices", "System Design", "Cloud Services", "CI/CD"]
+    },
+    "roadmap": [
+      {
+        "phase": "Foundation",
+        "duration": "3 months",
+        "topics": ["Python/Node.js", "SQL", "REST APIs"],
+        "resources": [
+          {"title": "The Odin Project - Backend", "url": "https://www.theodinproject.com/", "type": "course"},
+          {"title": "SQLZoo", "url": "https://sqlzoo.net/", "type": "course"}
+        ]
+      },
+      {
+        "phase": "Intermediate",
+        "duration": "4 months",
+        "topics": ["Databases", "API Design", "Docker"],
+        "resources": [
+          {"title": "Docker for Beginners", "url": "https://docker-curriculum.com/", "type": "course"},
+          {"title": "API Design Best Practices", "url": "https://www.udemy.com/course/api-design/", "type": "course"}
+        ]
+      },
+      {
+        "phase": "Advanced",
+        "duration": "5 months",
+        "topics": ["Microservices", "Cloud", "CI/CD"],
+        "resources": [
+          {"title": "AWS Cloud Practitioner", "url": "https://aws.amazon.com/certification/", "type": "certification"},
+          {"title": "System Design Primer", "url": "https://github.com/donnemartin/system-design-primer", "type": "documentation"}
+        ]
+      }
+    ],
+    "salary_range": "$65k-$125k",
+    "market_demand": "High",
+    "related_roles": ["Full Stack Developer", "DevOps Engineer", "Software Architect"]
+  },
+  {
+    "id": "ml_engineer",
+    "title": "Machine Learning Engineer",
+    "category": "Technology",
+    "summary": "Build and deploy ML models to production, optimize performance, and scale AI solutions.",
+    "skills": {
+      "beginner": ["Python", "Machine Learning Basics", "Statistics", "Linear Algebra"],
+      "intermediate": ["Deep Learning", "TensorFlow/PyTorch", "Model Deployment", "Feature Engineering"],
+      "advanced": ["MLOps", "Distributed Training", "Model Optimization", "AI Architecture"]
+    },
+    "roadmap": [
+      {
+        "phase": "Foundation",
+        "duration": "4 months",
+        "topics": ["Python", "ML Basics", "Mathematics"],
+        "resources": [
+          {"title": "Machine Learning by Andrew Ng", "url": "https://www.coursera.org/learn/machine-learning", "type": "course"},
+          {"title": "Mathematics for ML", "url": "https://www.coursera.org/specializations/mathematics-machine-learning", "type": "course"}
+        ]
+      },
+      {
+        "phase": "Intermediate",
+        "duration": "5 months",
+        "topics": ["Deep Learning", "Frameworks", "Deployment"],
+        "resources": [
+          {"title": "Deep Learning Specialization", "url": "https://www.coursera.org/specializations/deep-learning", "type": "course"},
+          {"title": "TensorFlow Developer Certificate", "url": "https://www.tensorflow.org/certificate", "type": "certification"}
+        ]
+      },
+      {
+        "phase": "Advanced",
+        "duration": "6 months",
+        "topics": ["MLOps", "Scaling", "Optimization"],
+        "resources": [
+          {"title": "Made With ML - MLOps", "url": "https://madewithml.com/", "type": "course"},
+          {"title": "Kubeflow Documentation", "url": "https://www.kubeflow.org/", "type": "documentation"}
+        ]
+      }
+    ],
+    "salary_range": "$90k-$160k",
+    "market_demand": "Very High",
+    "related_roles": ["Data Scientist", "AI Engineer", "MLOps Engineer"]
+  },
+  {
+    "id": "devops_engineer",
+    "title": "DevOps Engineer",
+    "category": "Technology",
+    "summary": "Automate infrastructure, manage CI/CD pipelines, and ensure reliable software delivery.",
+    "skills": {
+      "beginner": ["Linux", "Git", "Scripting", "Networking Basics"],
+      "intermediate": ["Docker", "Kubernetes", "CI/CD", "Cloud Platforms"],
+      "advanced": ["Infrastructure as Code", "Monitoring", "Security", "Architecture"]
+    },
+    "roadmap": [
+      {
+        "phase": "Foundation",
+        "duration": "3 months",
+        "topics": ["Linux", "Git", "Networking"],
+        "resources": [
+          {"title": "Linux Essentials", "url": "https://www.edx.org/course/linux-essentials", "type": "course"},
+          {"title": "Git Complete Course", "url": "https://www.udemy.com/course/git-complete/", "type": "course"}
+        ]
+      },
+      {
+        "phase": "Intermediate",
+        "duration": "4 months",
+        "topics": ["Docker", "Kubernetes", "CI/CD"],
+        "resources": [
+          {"title": "Docker & Kubernetes", "url": "https://www.udemy.com/course/docker-kubernetes/", "type": "course"},
+          {"title": "GitHub Actions", "url": "https://docs.github.com/en/actions", "type": "documentation"}
+        ]
+      },
+      {
+        "phase": "Advanced",
+        "duration": "5 months",
+        "topics": ["Terraform", "Monitoring", "Security"],
+        "resources": [
+          {"title": "Terraform Up & Running", "url": "https://www.terraformupandrunning.com/", "type": "book"},
+          {"title": "Prometheus & Grafana", "url": "https://grafana.com/docs/", "type": "documentation"}
+        ]
+      }
+    ],
+    "salary_range": "$75k-$140k",
+    "market_demand": "High",
+    "related_roles": ["Cloud Engineer", "Site Reliability Engineer", "Platform Engineer"]
+  }
+]
