@@ -620,10 +620,8 @@ MIT License - feel free to use this project for learning, portfolios, or intervi
 
 ## 👨‍💻 Author
 
-Built with ❤️ to demonstrate Applied AI Engineering excellence.
-
-**Perfect for:** AI/ML Engineer interviews, portfolio projects, learning RAG systems.
-
+M Gowthami
+IIITDM Jabalpur
 ---
 
 ## 🙏 Acknowledgments
