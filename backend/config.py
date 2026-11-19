@@ -18,7 +18,7 @@ class Config:
     # OpenAI Configuration
     OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
     EMBEDDING_MODEL: str = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
-    GENERATION_MODEL: str = os.getenv("GENERATION_MODEL", "gpt-3.5-turbo")
+    GENERATION_MODEL: str = os.getenv("GENERATION_MODEL", "gpt-5.6-terra")
     
     # Pinecone Configuration
     PINECONE_API_KEY: str = os.getenv("PINECONE_API_KEY", "")
