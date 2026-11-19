@@ -46,8 +46,8 @@ class Generator:
                 params = {
                     "model": self.model,
                     "messages": [{"role": "user", "content": prompt}],
-                    "max_tokens": max_tokens,
-                    "temperature": temperature
+                    "max_completion_tokens": max_tokens,
+                    "reasoning_effort": none
                 }
                 
                 if response_format:
