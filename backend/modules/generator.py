@@ -1,23 +1,28 @@
 """
 Generator module for PathPilot RAG System.
-Handles LLM generation with OpenAI.
+Handles LLM generation with Google Gemini.
 """
 import logging
 import time
-import json
 from typing import Dict, Any, Optional
-from openai import OpenAI
+from google import genai
+from google.genai import types
 from config import config
 from utils.json_parser import try_parse_json
 
 logger = logging.getLogger(__name__)
 
+SYSTEM_INSTRUCTION = (
+    "You are PathPilot, an expert career, startup, and finance advisor. "
+    "Follow the user instructions carefully. When asked for JSON, return valid JSON only."
+)
+
 
 class Generator:
-    """Manages LLM generation with OpenAI."""
+    """Manages LLM generation with Google Gemini."""
     
     def __init__(self):
-        self.client = OpenAI(api_key=config.OPENAI_API_KEY)
+        self.client = genai.Client(api_key=config.GEMINI_API_KEY)
         self.model = config.GENERATION_MODEL
         self.max_retries = 3
         self.retry_delay = 1.5
@@ -30,7 +35,7 @@ class Generator:
         response_format: Optional[Dict] = None
     ) -> str:
         """
-        Generate text from OpenAI with retry logic.
+        Generate text from Gemini with retry logic.
         
         Args:
             prompt: Input prompt
@@ -41,20 +46,29 @@ class Generator:
         Returns:
             Generated text
         """
+        wants_json = bool(
+            response_format and response_format.get("type") == "json_object"
+        )
+        
+        gen_config_kwargs = {
+            "system_instruction": SYSTEM_INSTRUCTION,
+            "temperature": temperature,
+            "max_output_tokens": max_tokens,
+        }
+        if wants_json:
+            gen_config_kwargs["response_mime_type"] = "application/json"
+        
         for attempt in range(1, self.max_retries + 1):
             try:
-                params = {
-                    "model": self.model,
-                    "messages": [{"role": "user", "content": prompt}],
-                    "max_completion_tokens": max_tokens,
-                    "reasoning_effort": none
-                }
-                
-                if response_format:
-                    params["response_format"] = response_format
-                
-                response = self.client.chat.completions.create(**params)
-                return response.choices[0].message.content.strip()
+                response = self.client.models.generate_content(
+                    model=self.model,
+                    contents=prompt,
+                    config=types.GenerateContentConfig(**gen_config_kwargs),
+                )
+                text = (getattr(response, "text", None) or "").strip()
+                if not text:
+                    raise ValueError("Empty generation response")
+                return text
                 
             except Exception as e:
                 logger.warning(f"Generation attempt {attempt}/{self.max_retries} failed: {e}")
@@ -80,7 +94,7 @@ class Generator:
         Returns:
             Parsed JSON object
         """
-        # Try with JSON mode first
+        # Try with JSON mime type first
         try:
             response_text = self.generate(
                 prompt,
@@ -95,7 +109,7 @@ class Generator:
         except Exception as e:
             logger.warning(f"JSON mode generation failed: {e}")
         
-        # Fallback: try without JSON mode
+        # Fallback: try without JSON mime type (parser still extracts JSON)
         try:
             response_text = self.generate(
                 prompt,

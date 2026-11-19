@@ -3,6 +3,7 @@ PathPilot RAG System - FastAPI Application
 Production-grade RAG-based AI system for career guidance, startup advice, and financial insights.
 """
 import logging
+import os
 import time
 from typing import Optional, List, Dict, Any
 from fastapi import FastAPI, HTTPException
@@ -419,4 +420,5 @@ async def index_stats():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=config.PORT, reload=True)
+    port = int(os.environ.get("PORT", 5000))
+    uvicorn.run(app, host="0.0.0.0", port=port)

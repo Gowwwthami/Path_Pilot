@@ -1,24 +1,36 @@
 """
 Embedding module for PathPilot RAG System.
-Handles text embedding generation using OpenAI.
+Handles text embedding generation using Google Gemini.
 """
 import logging
 import time
 from typing import List, Dict, Any
-from openai import OpenAI
+from google import genai
 from config import config
 
 logger = logging.getLogger(__name__)
 
 
 class EmbeddingService:
-    """Manages text embedding generation with OpenAI."""
+    """Manages text embedding generation with Google Gemini."""
     
     def __init__(self):
-        self.client = OpenAI(api_key=config.OPENAI_API_KEY)
+        self.client = genai.Client(api_key=config.GEMINI_API_KEY)
         self.model = config.EMBEDDING_MODEL
         self.max_retries = 3
         self.retry_delay = 1.5
+    
+    def _extract_values(self, embeddings) -> List[List[float]]:
+        """Extract float vectors from google-genai embedding objects."""
+        vectors = []
+        for item in embeddings or []:
+            values = getattr(item, "values", None)
+            if values is None and isinstance(item, dict):
+                values = item.get("values")
+            if values is None:
+                raise ValueError("Embedding response did not include .values")
+            vectors.append(list(values))
+        return vectors
     
     def get_embedding(self, text: str) -> List[float]:
         """
@@ -32,11 +44,14 @@ class EmbeddingService:
         """
         for attempt in range(1, self.max_retries + 1):
             try:
-                response = self.client.embeddings.create(
+                response = self.client.models.embed_content(
                     model=self.model,
-                    input=text
+                    contents=text
                 )
-                return response.data[0].embedding
+                vectors = self._extract_values(response.embeddings)
+                if not vectors:
+                    raise ValueError("Empty embedding response")
+                return vectors[0]
             except Exception as e:
                 logger.warning(f"Embedding attempt {attempt}/{self.max_retries} failed: {e}")
                 if attempt < self.max_retries:
@@ -50,7 +65,7 @@ class EmbeddingService:
         
         Args:
             texts: List of input texts
-            batch_size: Number of texts per batch (OpenAI limit: 2048)
+            batch_size: Number of texts per batch
             
         Returns:
             List of embedding vectors
@@ -63,17 +78,15 @@ class EmbeddingService:
             
             for attempt in range(1, self.max_retries + 1):
                 try:
-                    response = self.client.embeddings.create(
+                    response = self.client.models.embed_content(
                         model=self.model,
-                        input=batch
+                        contents=batch
                     )
-                    
-                    # Sort by index to maintain order
-                    sorted_embeddings = sorted(
-                        response.data, 
-                        key=lambda x: x.index
-                    )
-                    batch_embeddings = [emb.embedding for emb in sorted_embeddings]
+                    batch_embeddings = self._extract_values(response.embeddings)
+                    if len(batch_embeddings) != len(batch):
+                        raise ValueError(
+                            f"Expected {len(batch)} embeddings, got {len(batch_embeddings)}"
+                        )
                     all_embeddings.extend(batch_embeddings)
                     break
                     

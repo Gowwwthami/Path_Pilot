@@ -17,7 +17,7 @@ class VectorStore:
         self.pc = None
         self.index = None
         self.index_name = config.PINECONE_INDEX_NAME
-        self.dimension = config.EMBEDDING_DIMENSION
+        self.dimension = config.EMBEDDING_DIMENSION  # 3072 for gemini-embedding-001
     
     def initialize(self) -> None:
         """Initialize Pinecone connection and index."""
@@ -55,6 +55,18 @@ class VectorStore:
             raise RuntimeError("Pinecone index not initialized. Call initialize() first.")
         
         total = len(documents)
+        for doc in documents:
+            embedding = doc.get("embedding") or []
+            if embedding:
+                inferred = len(embedding)
+                if inferred != self.dimension:
+                    logger.warning(
+                        f"Inferred embedding dimension {inferred} differs from "
+                        f"configured {self.dimension}; using inferred value"
+                    )
+                    self.dimension = inferred
+                break
+        
         logger.info(f"Upserting {total} documents to Pinecone")
         
         for i in range(0, total, batch_size):

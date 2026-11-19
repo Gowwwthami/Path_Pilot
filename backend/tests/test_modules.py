@@ -126,5 +126,74 @@ class TestDocumentStructure:
         assert doc_dict["text"] == "Test content"
 
 
+class TestGeminiClients:
+    """Test Gemini embedding and generation wrappers with mocks."""
+    
+    def test_get_embedding_extracts_values(self, monkeypatch):
+        from modules import embeddings as embeddings_mod
+        
+        class FakeEmbedding:
+            def __init__(self, values):
+                self.values = values
+        
+        class FakeModels:
+            def embed_content(self, model, contents):
+                assert model
+                assert contents == "hello"
+                return type("Resp", (), {"embeddings": [FakeEmbedding([0.1, 0.2, 0.3])]})()
+        
+        class FakeClient:
+            def __init__(self, api_key=None):
+                self.models = FakeModels()
+        
+        monkeypatch.setattr(embeddings_mod.genai, "Client", FakeClient)
+        service = embeddings_mod.EmbeddingService()
+        vector = service.get_embedding("hello")
+        assert vector == [0.1, 0.2, 0.3]
+    
+    def test_get_embeddings_batch_preserves_order(self, monkeypatch):
+        from modules import embeddings as embeddings_mod
+        
+        class FakeEmbedding:
+            def __init__(self, values):
+                self.values = values
+        
+        class FakeModels:
+            def embed_content(self, model, contents):
+                return type("Resp", (), {
+                    "embeddings": [FakeEmbedding([float(i)]) for i in range(len(contents))]
+                })()
+        
+        class FakeClient:
+            def __init__(self, api_key=None):
+                self.models = FakeModels()
+        
+        monkeypatch.setattr(embeddings_mod.genai, "Client", FakeClient)
+        service = embeddings_mod.EmbeddingService()
+        vectors = service.get_embeddings_batch(["a", "b", "c"], batch_size=10)
+        assert vectors == [[0.0], [1.0], [2.0]]
+    
+    def test_generate_json_uses_mime_type(self, monkeypatch):
+        from modules import generator as generator_mod
+        
+        captured = {}
+        
+        class FakeModels:
+            def generate_content(self, model, contents, config):
+                captured["mime"] = getattr(config, "response_mime_type", None)
+                captured["temperature"] = getattr(config, "temperature", None)
+                return type("Resp", (), {"text": '{"ok": true}'})()
+        
+        class FakeClient:
+            def __init__(self, api_key=None):
+                self.models = FakeModels()
+        
+        monkeypatch.setattr(generator_mod.genai, "Client", FakeClient)
+        gen = generator_mod.Generator()
+        result = gen.generate_json("return json")
+        assert result == {"ok": True}
+        assert captured["mime"] == "application/json"
+
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])
