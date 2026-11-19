@@ -16,9 +16,9 @@ class Config:
     """Application configuration with validation."""
     
     # OpenAI Configuration
-    OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
-    EMBEDDING_MODEL: str = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
-    GENERATION_MODEL: str = os.getenv("GENERATION_MODEL", "gpt-5.6-terra")
+    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+    CHAT_MODEL = os.getenv("GEMINI_CHAT_MODEL", "gemini-2.5-flash")
+    EMBEDDING_MODEL = os.getenv("GEMINI_EMBEDDING_MODEL", "gemini-embedding-001")
     
     # Pinecone Configuration
     PINECONE_API_KEY: str = os.getenv("PINECONE_API_KEY", "")
