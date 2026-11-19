@@ -99,9 +99,8 @@ async def startup_event():
         
         logger.info("Services initialized")
         
-        # Initialize Pinecone
         vector_store.initialize()
-        logger.info("Pinecone initialized")
+        logger.info("In-memory vector store initialized")
         
         # Ingest data
         logger.info("Starting data ingestion...")
@@ -113,7 +112,7 @@ async def startup_event():
         logger.info(f"Embedded {len(embedded_docs)} documents")
         
         vector_store.upsert_documents(embedded_docs)
-        logger.info("Documents upserted to Pinecone")
+        logger.info("Documents upserted to in-memory vector store")
         
         # Get stats
         stats = vector_store.get_index_stats()
@@ -407,7 +406,7 @@ async def evaluate_rag(request: EvaluationRequest):
 
 @app.get("/api/v1/index-stats")
 async def index_stats():
-    """Get Pinecone index statistics."""
+    """Get vector index statistics."""
     try:
         stats = vector_store.get_index_stats()
         return {

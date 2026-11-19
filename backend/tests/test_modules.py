@@ -10,6 +10,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from modules.ingestion import DataIngestion, Document
+from modules.vector_store import VectorStore
 from utils.json_parser import try_parse_json, validate_json_structure
 
 
@@ -124,6 +125,75 @@ class TestDocumentStructure:
         assert "text" in doc_dict
         assert "metadata" in doc_dict
         assert doc_dict["text"] == "Test content"
+
+
+class TestVectorStore:
+    """Test in-memory NumPy cosine vector store."""
+    
+    def _sample_docs(self):
+        return [
+            {
+                "id": "career-1",
+                "text": "Software engineer role",
+                "embedding": [1.0, 0.0, 0.0],
+                "metadata": {
+                    "type": "career_overview",
+                    "title": "Software Engineer",
+                    "category": "tech",
+                    "chunk_type": "overview",
+                },
+            },
+            {
+                "id": "finance-1",
+                "text": "Stock analysis",
+                "embedding": [0.0, 1.0, 0.0],
+                "metadata": {
+                    "type": "financial_stock",
+                    "title": "AAPL",
+                    "category": "finance",
+                    "chunk_type": "stock",
+                },
+            },
+        ]
+    
+    def test_upsert_and_cosine_query(self):
+        store = VectorStore()
+        store.initialize()
+        store.upsert_documents(self._sample_docs())
+        
+        results = store.query_similar([1.0, 0.0, 0.0], top_k=1)
+        assert len(results) == 1
+        assert results[0]["id"] == "career-1"
+        assert results[0]["score"] == pytest.approx(1.0, abs=1e-5)
+        assert results[0]["title"] == "Software Engineer"
+    
+    def test_type_in_filter(self):
+        store = VectorStore()
+        store.initialize()
+        store.upsert_documents(self._sample_docs())
+        
+        results = store.query_similar(
+            [1.0, 1.0, 0.0],
+            top_k=5,
+            filter_dict={"type": {"$in": ["financial_stock"]}},
+        )
+        assert len(results) == 1
+        assert results[0]["id"] == "finance-1"
+    
+    def test_search_alias_and_stats(self):
+        store = VectorStore()
+        store.initialize()
+        store.upsert_documents(self._sample_docs())
+        
+        via_search = store.search([0.0, 1.0, 0.0], top_k=1)
+        via_query = store.query([0.0, 1.0, 0.0], top_k=1)
+        assert via_search[0]["id"] == "finance-1"
+        assert via_query[0]["id"] == "finance-1"
+        
+        stats = store.get_index_stats()
+        assert stats["total_vectors"] == 2
+        assert stats["metric"] == "cosine"
+        assert stats["dimension"] == 3
 
 
 class TestGeminiClients:

@@ -21,11 +21,6 @@ class Config:
     # Alias used by health checks and generator
     GENERATION_MODEL = CHAT_MODEL
     
-    # Pinecone Configuration
-    PINECONE_API_KEY: str = os.getenv("PINECONE_API_KEY", "")
-    PINECONE_ENVIRONMENT: str = os.getenv("PINECONE_ENVIRONMENT", "us-east1-aws")
-    PINECONE_INDEX_NAME: str = os.getenv("PINECONE_INDEX_NAME", "pathpilot-careers")
-    
     # RAG Configuration
     TOP_K: int = int(os.getenv("TOP_K", "5"))
     # gemini-embedding-001 default output dimension
@@ -45,8 +40,6 @@ class Config:
         """Validate required configuration values."""
         if not cls.GEMINI_API_KEY:
             raise ValueError("GEMINI_API_KEY is required")
-        if not cls.PINECONE_API_KEY:
-            raise ValueError("PINECONE_API_KEY is required")
     
     @classmethod
     def ensure_directories(cls) -> None:
