@@ -1,233 +1,174 @@
-# PathPilot - Production-Grade RAG-Based AI System
+# PathPilot
 
+[![Live Demo](https://img.shields.io/badge/Live-path--pilot--ashy.vercel.app-brightgreen.svg)](https://path-pilot-ashy.vercel.app)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.109.0-green.svg)](https://fastapi.tiangolo.com/)
-[![OpenAI](https://img.shields.io/badge/OpenAI-GPT--3.5--turbo-orange.svg)](https://openai.com/)
-[![Pinecone](https://img.shields.io/badge/Pinecone-VectorDB-purple.svg)](https://www.pinecone.io/)
+[![Gemini](https://img.shields.io/badge/Google-Gemini-4285F4.svg)](https://ai.google.dev/)
+[![React](https://img.shields.io/badge/React-Vite-61DAFB.svg)](https://vitejs.dev/)
 
-**PathPilot** is a production-grade Retrieval-Augmented Generation (RAG) system that provides highly relevant, structured, and explainable AI outputs for career guidance, startup validation, and financial insights.
+**Live app:** [https://path-pilot-ashy.vercel.app](https://path-pilot-ashy.vercel.app)
 
----
-
-## 🎯 Project Overview
-
-PathPilot transforms basic LLM-based assistants into enterprise-grade RAG systems by implementing:
-
-- **Semantic retrieval** using vector databases (Pinecone)
-- **Structured prompt engineering** for consistent JSON outputs
-- **Evaluation harness** to measure RAG vs baseline performance
-- **Modular architecture** for scalability and maintainability
-- **Multi-domain knowledge base** (careers, startups, financial data)
-
-This project demonstrates **Applied AI Engineering** expertise, perfect for showcasing in AI/ML internship interviews.
+**PathPilot** is a Retrieval-Augmented Generation (RAG) system for career guidance, startup validation, and financial insights. The React frontend is deployed on Vercel. The FastAPI backend uses the Google Gemini API (`google-genai`) and an in-memory NumPy cosine-similarity index — no OpenAI or Pinecone account required.
 
 ---
 
-## 🏗️ Architecture
+## Project Overview
+
+PathPilot turns a standard LLM assistant into a grounded RAG pipeline:
+
+- Semantic retrieval over career, startup, and financial datasets
+- Structured prompt engineering with JSON outputs
+- Evaluation of RAG vs. no-retrieval baseline
+- Modular backend (ingestion → embeddings → store → retrieve → generate)
+- Gemini embeddings (`gemini-embedding-001`) and chat (`gemini-3.5-flash-lite` by default)
+
+---
+
+## Architecture
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│                  FRONTEND (React)                    │
-│  - Resume Upload & Profile Input                     │
-│  - Career Roadmap Visualization                      │
-│  - Startup Guidance Dashboard                        │
-│  - Financial Insights Dashboard                      │
+│              FRONTEND (React + Vite)                 │
+│  Live: https://path-pilot-ashy.vercel.app            │
+│  Career advisor · Roadmaps · Startup · Finance       │
 └──────────────────────┬──────────────────────────────┘
-                       │ HTTP/REST
+                       │ HTTP/REST  (VITE_API_URL)
 ┌──────────────────────▼──────────────────────────────┐
 │              BACKEND (FastAPI)                       │
 │                                                      │
 │  ┌────────────┐  ┌──────────┐  ┌──────────────┐   │
 │  │ Ingestion  │→ │Embedding │→ │ Vector Store │   │
-│  │  Module    │  │  Module  │  │  (Pinecone)  │   │
+│  │  Module    │  │ (Gemini) │  │ (NumPy RAM)  │   │
 │  └────────────┘  └──────────┘  └──────┬───────┘   │
 │                                        │            │
 │  ┌────────────┐  ┌──────────┐  ┌──────▼───────┐   │
 │  │Evaluation  │← │Generation│← │  Retrieval   │   │
-│  │  Module    │  │  Module  │  │   Module     │   │
+│  │            │  │ (Gemini) │  │              │   │
 │  └────────────┘  └──────────┘  └──────────────┘   │
-│                                        │            │
-│                              ┌─────────▼────────┐  │
-│                              │   OpenAI LLM     │  │
-│                              │ (GPT-3.5-turbo)  │  │
-│                              └──────────────────┘  │
+│                                                      │
+│           Google Gemini API (AI Studio key)          │
 └─────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 🔧 RAG Pipeline Explained
+## RAG Pipeline
 
-### 1. Data Ingestion
-```
-Raw JSON Datasets → Semantic Chunking → Metadata Tagging
-```
-- Loads structured datasets (careers, startups, financial data)
-- Chunks data by semantic boundaries (role overview, skills, roadmap phases)
-- Tags each chunk with metadata (type, category, difficulty)
-
-### 2. Embedding Generation
-```
-Text Chunks → OpenAI text-embedding-3-small → 1536-dim Vectors
-```
-- Converts text chunks to dense vector representations
-- Uses OpenAI's latest embedding model
-- Batch processing for efficiency
-
-### 3. Vector Storage
-```
-Vectors + Metadata → Pinecone Index → Persistent Storage
-```
-- Stores embeddings in Pinecone vector database
-- Enables fast similarity search (cosine similarity)
-- Supports metadata filtering
-
-### 4. Retrieval
-```
-User Query → Embed Query → Top-K Similar Documents → Context Assembly
-```
-- Embeds user query using same model
-- Retrieves most relevant documents (top-k similarity search)
-- Filters by domain (career, startup, financial)
-- Assembles retrieved context into coherent string
-
-### 5. Generation
-```
-Prompt + Retrieved Context → OpenAI GPT-3.5 → Structured JSON Output
-```
-- Injects retrieved context into structured prompts
-- Generates responses using OpenAI's JSON mode
-- Ensures consistent, parseable output format
-
-### 6. Evaluation
-```
-RAG Response vs Baseline → LLM-as-Judge → Quality Metrics
-```
-- Compares RAG responses with non-RAG baseline
-- Scores on relevance, completeness, context usage, specificity
-- Logs results for analysis and improvement
+1. **Ingestion** — JSON datasets are chunked by semantic units (overview, skills, roadmap phases) and tagged with metadata.
+2. **Embeddings** — Chunks are embedded with `gemini-embedding-001` (3072-dim by default) via `google-genai`.
+3. **Vector store** — IDs, embeddings, and metadata live in memory. Search uses NumPy cosine similarity and `$in` metadata filters.
+4. **Retrieval** — The user query is embedded, top-k neighbors are fetched (optionally filtered by domain), and context is assembled.
+5. **Generation** — Gemini `generate_content` produces structured JSON (`response_mime_type=application/json`).
+6. **Evaluation** — RAG answers are scored against a no-retrieval baseline (relevance, completeness, context usage, specificity, accuracy).
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 Path_Pilot/
 ├── backend/
-│   ├── app.py                      # FastAPI main application
-│   ├── config.py                   # Configuration management
+│   ├── app.py                      # FastAPI app (binds 0.0.0.0, PORT)
+│   ├── config.py                   # Env-based configuration
 │   ├── requirements.txt            # Python dependencies
-│   ├── .env.example                # Environment variables template
-│   │
-│   ├── data/
-│   │   ├── careers.json            # 50+ career roles with roadmaps
-│   │   ├── startups.json           # Startup frameworks & guides
-│   │   ├── financial_data.json     # Stock data & investment strategies
-│   │   └── learning_resources.json # Curated courses, books, videos
-│   │
+│   ├── .env.example                # GEMINI_API_KEY and related vars
+│   ├── data/                       # careers, startups, financial, resources
 │   ├── modules/
-│   │   ├── __init__.py
-│   │   ├── ingestion.py            # Data loading & chunking
-│   │   ├── embeddings.py           # OpenAI embedding generation
-│   │   ├── vector_store.py         # Pinecone integration
-│   │   ├── retriever.py            # Semantic search & context assembly
-│   │   ├── generator.py            # LLM prompt engineering & generation
-│   │   ├── evaluator.py            # Evaluation harness (in app.py)
-│   │   └── logger.py               # Query/response logging (in app.py)
-│   │
-│   └── utils/
-│       ├── __init__.py
-│       ├── prompt_templates.py     # Structured prompt templates
-│       └── json_parser.py          # Robust JSON parsing utilities
-│
+│   │   ├── ingestion.py            # Loading & chunking
+│   │   ├── embeddings.py           # Gemini embeddings
+│   │   ├── vector_store.py         # In-memory NumPy cosine index
+│   │   ├── retriever.py            # Search & context assembly
+│   │   └── generator.py            # Gemini generation
+│   ├── utils/
+│   │   ├── prompt_templates.py
+│   │   └── json_parser.py
+│   └── tests/
+│       └── test_modules.py
 ├── frontend/
-│   ├── src/
-│   │   ├── App.jsx                 # Main React app with routes
-│   │   ├── config.js               # API configuration
-│   │   ├── CareerAdvisorFrontend.jsx
-│   │   ├── FinancialInsights.jsx   # NEW: Financial analysis page
-│   │   └── ... (other components)
-│   └── ...
-│
-└── README.md                       # This file
+│   └── src/
+│       ├── config.js               # VITE_API_URL (fallback localhost:5000)
+│       ├── App.jsx
+│       └── ...
+└── README.md
 ```
 
 ---
 
-## 🚀 Quick Start
+## Live Demo
+
+| Surface | URL |
+|---------|-----|
+| **Frontend (Vercel)** | [https://path-pilot-ashy.vercel.app](https://path-pilot-ashy.vercel.app) |
+
+Point the frontend at a running backend with `VITE_API_URL` (no trailing slash), for example your Render service URL.
+
+---
+
+## Quick Start (local)
 
 ### Prerequisites
 
 - Python 3.9+
 - Node.js 16+
-- OpenAI API key
-- Pinecone API key
+- A free [Google AI Studio](https://aistudio.google.com/apikey) API key (`GEMINI_API_KEY`)
 
-### Backend Setup
+### Backend
 
 ```bash
-# Navigate to backend directory
 cd backend
-
-# Create virtual environment
 python -m venv venv
 
-# Activate virtual environment
-# Windows:
+# Windows
 venv\Scripts\activate
-# Mac/Linux:
+# macOS / Linux
 source venv/bin/activate
 
-# Install dependencies
 pip install -r requirements.txt
-
-# Create .env file from template
 cp .env.example .env
+# Set GEMINI_API_KEY in .env
 
-# Edit .env and add your API keys:
-# OPENAI_API_KEY=your_key_here
-# PINECONE_API_KEY=your_key_here
-# PINECONE_ENVIRONMENT=us-east1-aws
-
-# Run the FastAPI server
 python app.py
-# or
-uvicorn app:app --reload --port 8000
+# listens on http://0.0.0.0:5000  (or $PORT)
 ```
 
-Backend will be available at: `http://localhost:8000`
+Swagger UI: `http://localhost:5000/docs`
 
-**API Documentation:** `http://localhost:8000/docs` (Swagger UI)
-
-### Frontend Setup
+Alternatively:
 
 ```bash
-# Navigate to frontend directory
+uvicorn app:app --reload --host 0.0.0.0 --port 5000
+```
+
+### Frontend
+
+```bash
 cd frontend
-
-# Install dependencies
 npm install
-
-# Create .env file (optional)
-echo "VITE_API_URL=http://localhost:8000" > .env
-
-# Run development server
+echo "VITE_API_URL=http://localhost:5000" > .env
 npm run dev
 ```
 
-Frontend will be available at: `http://localhost:5173`
+App: `http://localhost:5173`
 
 ---
 
-## 🔌 API Endpoints
+## API Endpoints
 
-### 1. Health Check
-```http
-GET /api/v1/health
-```
-Returns system status and index statistics.
+Base path: `/api/v1`
 
-### 2. Resume Analysis & Career Recommendations
+| Method | Path | Purpose |
+|--------|------|---------|
+| GET | `/health` | Status, models, index stats |
+| POST | `/analyze-resume` | Career recommendations from resume text |
+| POST | `/career-roadmap` | Phase-by-phase learning plan |
+| POST | `/startup-guidance` | Startup advice from project details |
+| POST | `/financial-insights` | Market / stock analysis |
+| POST | `/evaluate` | Assessment-based roadmap |
+| POST | `/evaluate-rag` | RAG vs baseline comparison |
+| GET | `/index-stats` | In-memory index statistics |
+
+### Resume analysis
+
 ```http
 POST /api/v1/analyze-resume
 Content-Type: application/json
@@ -237,32 +178,8 @@ Content-Type: application/json
 }
 ```
 
-**Response:**
-```json
-{
-  "success": true,
-  "data": {
-    "recommendations": [
-      {
-        "title": "Data Scientist",
-        "rank": 1,
-        "match_score": 0.89,
-        "why_fit": ["Strong Python skills", "Data analysis experience"],
-        "skill_gaps": ["Machine Learning", "Deep Learning"],
-        "next_steps": ["Complete ML course", "Build portfolio project"],
-        "resources": [...],
-        "90_day_plan": [...]
-      }
-    ]
-  },
-  "metadata": {
-    "processing_time": 3.45,
-    "context_length": 2847
-  }
-}
-```
+### Career roadmap
 
-### 3. Career Roadmap
 ```http
 POST /api/v1/career-roadmap
 Content-Type: application/json
@@ -274,7 +191,8 @@ Content-Type: application/json
 }
 ```
 
-### 4. Startup Guidance
+### Startup guidance
+
 ```http
 POST /api/v1/startup-guidance
 Content-Type: application/json
@@ -290,7 +208,8 @@ Content-Type: application/json
 }
 ```
 
-### 5. Financial Insights
+### Financial insights
+
 ```http
 POST /api/v1/financial-insights
 Content-Type: application/json
@@ -301,336 +220,84 @@ Content-Type: application/json
 }
 ```
 
-### 6. RAG Evaluation
-```http
-POST /api/v1/evaluate-rag
-Content-Type: application/json
-
-{
-  "query": "How to become a data scientist?",
-  "domain": "career"
-}
-```
-
-**Response:**
-```json
-{
-  "success": true,
-  "data": {
-    "with_rag": {
-      "response": "...",
-      "context_used": true,
-      "context_length": 2847
-    },
-    "without_rag": {
-      "response": "...",
-      "context_used": false
-    },
-    "evaluation": {
-      "scores": {
-        "relevance": 4.5,
-        "completeness": 4.0,
-        "context_usage": 5.0,
-        "specificity": 4.5,
-        "accuracy": 5.0
-      },
-      "overall_score": 4.6,
-      "strengths": ["Specific actionable advice", "Well-structured roadmap"],
-      "weaknesses": ["Could include more resources"],
-      "improvements": ["Add salary information"]
-    }
-  }
-}
-```
+CORS is enabled for all origins so the Vercel frontend can call a hosted backend.
 
 ---
 
-## 📊 Evaluation Results
+## Environment Variables
 
-### RAG vs Baseline Comparison
+### Backend (`backend/.env`)
 
-| Metric              | RAG System | Baseline (No Retrieval) | Improvement |
-|---------------------|------------|-------------------------|-------------|
-| Relevance           | 4.5/5      | 3.2/5                   | +40.6%      |
-| Completeness        | 4.3/5      | 3.0/5                   | +43.3%      |
-| Context Usage       | 4.8/5      | 1.5/5                   | +220%       |
-| Specificity         | 4.6/5      | 2.8/5                   | +64.3%      |
-| Accuracy            | 4.7/5      | 3.5/5                   | +34.3%      |
-| **Overall Score**   | **4.58/5** | **2.8/5**               | **+63.6%**  |
+| Variable | Description | Required | Default |
+|----------|-------------|----------|---------|
+| `GEMINI_API_KEY` | Google AI Studio API key | Yes | — |
+| `GEMINI_CHAT_MODEL` | Chat model | No | `gemini-3.5-flash-lite` |
+| `GEMINI_EMBEDDING_MODEL` | Embedding model | No | `gemini-embedding-001` |
+| `TOP_K` | Retrieved neighbors | No | `5` |
+| `LOG_LEVEL` | Logging level | No | `INFO` |
+| `PORT` | Listen port (Render sets this) | No | `5000` when using `python app.py` |
 
-### Key Findings
+### Frontend (`frontend/.env`)
 
-✅ **RAG responses are 63.6% better** than baseline responses  
-✅ **Context usage improved by 220%** - retrieved data is effectively utilized  
-✅ **Higher specificity** - actionable, domain-specific advice  
-✅ **Better accuracy** - grounded in real career data and frameworks  
-
----
-
-## 💡 Example Queries & Outputs
-
-### Example 1: Career Recommendation
-
-**Query:**
-```
-I'm a computer science graduate with skills in Python, JavaScript, and SQL. 
-I'm interested in AI and want to know the best career path.
-```
-
-**Output:**
-```json
-{
-  "recommendations": [
-    {
-      "title": "Machine Learning Engineer",
-      "rank": 1,
-      "match_score": 0.92,
-      "why_fit": [
-        "Strong Python foundation",
-        "Interest in AI aligns with ML",
-        "SQL skills useful for data preparation"
-      ],
-      "skill_gaps": [
-        "Deep Learning frameworks (TensorFlow/PyTorch)",
-        "Mathematics (Linear Algebra, Calculus)",
-        "MLOps and model deployment"
-      ],
-      "next_steps": [
-        "Complete Deep Learning Specialization on Coursera",
-        "Build 2-3 ML projects for portfolio",
-        "Learn model deployment with FastAPI"
-      ],
-      "90_day_plan": [
-        {"week": 1, "milestone": "Complete Python for ML course"},
-        {"week": 2, "milestone": "Study linear algebra basics"},
-        ...
-      ]
-    }
-  ]
-}
-```
-
-### Example 2: Financial Analysis
-
-**Query:**
-```
-Should I invest in NVIDIA stock right now? What are the risks?
-```
-
-**Output:**
-```json
-{
-  "analysis": {
-    "summary": "NVIDIA shows strong growth driven by AI chip demand...",
-    "key_insights": [
-      "Data center revenue up 126% YoY",
-      "Dominant position in AI/ML GPU market",
-      "Expanding into automotive and edge AI"
-    ],
-    "market_trend": "Very Bullish",
-    "risk_level": "Medium"
-  },
-  "stock_analysis": [
-    {
-      "symbol": "NVDA",
-      "current_price": 875.30,
-      "trend": "Very Bullish",
-      "recommendation": "Buy",
-      "reasoning": "Strong AI tailwinds, market dominance"
-    }
-  ],
-  "risk_factors": [
-    "High valuation (P/E: 72.5)",
-    "Semiconductor cycle volatility",
-    "Competition from AMD and Intel"
-  ]
-}
-```
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `VITE_API_URL` | Backend origin, no trailing slash | Yes in production (Vercel). Local fallback: `http://localhost:5000` |
 
 ---
 
-## 🛠️ Key Technical Features
+## Deployment
 
-### 1. Modular Architecture
-Each component is independently testable and replaceable:
-- **Ingestion** → **Embedding** → **Storage** → **Retrieval** → **Generation** → **Evaluation**
+### Frontend (Vercel) — live
 
-### 2. Structured Prompt Engineering
-All prompts enforce JSON output with predefined schemas:
-- Career recommendations with match scores
-- Phase-by-phase roadmaps with timelines
-- Startup guidance with actionable steps
+- **URL:** [https://path-pilot-ashy.vercel.app](https://path-pilot-ashy.vercel.app)
+- Set `VITE_API_URL` in Vercel project settings to your backend URL.
+- Rebuild after changing `VITE_API_URL` (Vite inlines it at build time).
 
-### 3. Robust JSON Parsing
-Handles messy LLM outputs:
-- Direct parsing
-- Regex extraction
-- Markdown code block parsing
-- Trailing comma fixes
+### Backend (Render, free tier)
 
-### 4. Retry Logic
-Exponential backoff for API failures:
-- Configurable max retries (default: 3)
-- Exponential delay (1.5^attempt seconds)
-- Graceful error handling
-
-### 5. Metadata Filtering
-Pinecone supports domain-specific filtering:
-- Career documents: `type: career_*`
-- Startup documents: `type: startup_*`
-- Financial documents: `type: financial_*`
-
-### 6. Evaluation Harness
-LLM-as-judge approach:
-- Compares RAG vs baseline responses
-- 5-metric scoring system
-- Detailed feedback for improvement
+- **Root directory:** `backend`
+- **Build command:** `pip install -r requirements.txt`
+- **Start command:**
+  ```text
+  gunicorn app:app -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT --timeout 180 --workers 1
+  ```
+- **Env vars:** `GEMINI_API_KEY` (required). Use **one worker** so the in-memory index built at startup stays in that process.
 
 ---
 
-## 📈 Scalability Considerations
+## Testing
 
-### Current Implementation
-- **Vector Database:** Pinecone (cloud-based, auto-scaling)
-- **Embedding Model:** OpenAI text-embedding-3-small (API-based)
-- **LLM:** OpenAI GPT-3.5-turbo (API-based)
-- **Data Size:** ~500 chunks (can scale to millions)
-
-### Scaling Strategies
-
-1. **Larger Datasets**
-   - Implement incremental indexing
-   - Use batch processing for embeddings
-   - Add data versioning
-
-2. **Higher Traffic**
-   - Add caching layer (Redis)
-   - Implement rate limiting
-   - Use async processing (Celery)
-
-3. **Multiple Domains**
-   - Separate Pinecone indexes per domain
-   - Implement hybrid search (semantic + keyword)
-   - Add domain-specific evaluators
-
-4. **Production Deployment**
-   - Use Docker containers
-   - Implement CI/CD pipeline
-   - Add monitoring (Prometheus, Grafana)
-   - Set up alerting
-
----
-
-## 🧪 Testing
-
-### Run Unit Tests
 ```bash
 cd backend
-pytest tests/
+pytest tests/ -v
 ```
 
-### Test API Endpoints
 ```bash
-# Using curl
-curl -X POST http://localhost:8000/api/v1/analyze-resume \
+curl -X POST http://localhost:5000/api/v1/analyze-resume \
   -H "Content-Type: application/json" \
-  -d '{"resume_text": "I am a software engineer with 3 years experience..."}'
-
-# Or use Swagger UI
-http://localhost:8000/docs
+  -d "{\"resume_text\": \"I am a software engineer with 3 years experience...\"}"
 ```
 
 ---
 
-## 🔐 Environment Variables
+## Knowledge Base
 
-| Variable                | Description                           | Required |
-|-------------------------|---------------------------------------|----------|
-| `OPENAI_API_KEY`        | OpenAI API key                        | Yes      |
-| `PINECONE_API_KEY`      | Pinecone API key                      | Yes      |
-| `PINECONE_ENVIRONMENT`  | Pinecone cloud environment            | Yes      |
-| `PINECONE_INDEX_NAME`   | Name of Pinecone index                | No       |
-| `EMBEDDING_MODEL`       | OpenAI embedding model                | No       |
-| `GENERATION_MODEL`      | OpenAI generation model               | No       |
-| `TOP_K`                 | Number of retrieved documents         | No       |
-| `LOG_LEVEL`             | Logging level (INFO, DEBUG, etc.)     | No       |
-| `PORT`                  | Server port                           | No       |
+- **Careers** — 50+ roles with skills, roadmaps, resources, salary ranges
+- **Startups** — SaaS / e-commerce / fintech frameworks, stages, case studies
+- **Finance** — sample stocks, strategies, analysis frameworks
+- **Learning resources** — courses, docs, and videos used in generated plans
 
 ---
 
-## 📚 Knowledge Base
+## License
 
-### Career Data (50+ roles)
-- Software Engineer, Data Scientist, ML Engineer
-- Frontend/Backend Developer, DevOps Engineer
-- Product Manager, UX Designer, Data Analyst
-- Each with: skills, roadmaps, resources, salary ranges
+MIT License.
 
-### Startup Frameworks
-- SaaS, E-Commerce, Fintech
-- Lean Startup methodology
-- Stage-by-stage guidance
-- Case studies (Slack, Stripe, Robinhood)
+## Author
 
-### Financial Data
-- 10+ stocks with real metrics
-- Investment strategies (Value, Growth, Index, Dividend)
-- Market analysis frameworks
-- Risk management guidelines
-
-### Learning Resources
-- Coursera, Udemy, edX courses
-- YouTube channels
-- Documentation & books
-- GitHub repositories
-
----
-
-## 🎓 What This Project Demonstrates
-
-✅ **RAG Pipeline Expertise** - Full implementation from ingestion to generation  
-✅ **Vector Database Knowledge** - Pinecone integration and optimization  
-✅ **Prompt Engineering** - Structured outputs with JSON mode  
-✅ **Evaluation Skills** - LLM-as-judge, A/B testing, metrics  
-✅ **System Design** - Modular, scalable architecture  
-✅ **API Development** - FastAPI, Pydantic validation, Swagger docs  
-✅ **Error Handling** - Retry logic, robust parsing, graceful degradation  
-✅ **Production Thinking** - Logging, monitoring, scalability planning  
-
----
-
-## 🚀 Future Enhancements
-
-- [ ] Add LangChain for advanced RAG patterns
-- [ ] Implement hybrid search (BM25 + semantic)
-- [ ] Add conversation memory for multi-turn dialogs
-- [ ] Integrate more data sources (LinkedIn, job boards)
-- [ ] Add user authentication and personalization
-- [ ] Implement A/B testing framework
-- [ ] Add real-time data feeds (stock prices, job listings)
-- [ ] Deploy on AWS/GCP with auto-scaling
-
----
-
-## 📄 License
-
-MIT License - feel free to use this project for learning, portfolios, or interviews.
-
----
-
-## 👨‍💻 Author
-
-M Gowthami
+M Gowthami  
 IIITDM Jabalpur
----
-
-## 🙏 Acknowledgments
-
-- OpenAI for GPT and embedding models
-- Pinecone for vector database infrastructure
-- FastAPI for modern Python web framework
-- React for frontend development
 
 ---
 
-**Star this repo if you found it helpful!** ⭐
+**Try it live:** [https://path-pilot-ashy.vercel.app](https://path-pilot-ashy.vercel.app)
